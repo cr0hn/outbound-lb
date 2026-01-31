@@ -1,12 +1,16 @@
 <p align="center">
+  <img src="logo.png" alt="Outbound LB Logo" width="150">
+</p>
+
+<h1 align="center">Outbound LB</h1>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Go-1.21+-00ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go Version">
   <img src="https://img.shields.io/github/license/cr0hn/outbound-lb?style=for-the-badge" alt="License">
   <img src="https://img.shields.io/github/v/release/cr0hn/outbound-lb?style=for-the-badge" alt="Release">
   <img src="https://img.shields.io/github/actions/workflow/status/cr0hn/outbound-lb/ci.yml?branch=main&style=for-the-badge&label=CI" alt="CI Status">
   <img src="https://img.shields.io/codecov/c/github/cr0hn/outbound-lb?style=for-the-badge" alt="Coverage">
 </p>
-
-<h1 align="center">Outbound LB</h1>
 
 <p align="center">
   <strong>High-Performance Forward Proxy with Intelligent Outbound IP Load Balancing</strong>
