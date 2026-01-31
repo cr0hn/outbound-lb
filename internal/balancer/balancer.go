@@ -21,9 +21,9 @@ type Balancer interface {
 
 // Stats holds balancer statistics.
 type Stats struct {
-	TotalHosts    int            `json:"total_hosts"`
-	TotalEntries  int            `json:"total_entries"`
-	EntriesPerIP  map[string]int `json:"entries_per_ip"`
+	TotalHosts   int            `json:"total_hosts"`
+	TotalEntries int            `json:"total_entries"`
+	EntriesPerIP map[string]int `json:"entries_per_ip"`
 }
 
 // Config holds balancer configuration.

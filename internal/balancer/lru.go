@@ -221,12 +221,3 @@ func (l *LRU) getAvailableIPs() []string {
 	}
 	return ips
 }
-
-// releaseAvailableIPs releases a slice obtained from getAvailableIPs back to the pool.
-// Only call this if limiter is configured.
-func (l *LRU) releaseAvailableIPs(s []string) {
-	if l.limiter != nil && cap(s) <= 64 {
-		// Return to pool - we can't import limiter package, so we just let it be GC'd
-		// The limiter.ReleaseAvailableIPs function handles pooling
-	}
-}

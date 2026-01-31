@@ -6,8 +6,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/cr0hn/outbound-lb/internal/logger"
 	"github.com/fsnotify/fsnotify"
+
+	"github.com/cr0hn/outbound-lb/internal/logger"
 )
 
 // ConfigWatcher watches a configuration file for changes and notifies callbacks.

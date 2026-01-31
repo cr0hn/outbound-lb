@@ -118,12 +118,12 @@ var (
 
 // Stats holds runtime statistics for the /stats endpoint.
 type Stats struct {
-	ActiveConnections int64             `json:"active_connections"`
-	TotalRequests     int64             `json:"total_requests"`
-	BytesSent         int64             `json:"bytes_sent"`
-	BytesReceived     int64             `json:"bytes_received"`
-	ConnectionsPerIP  map[string]int64  `json:"connections_per_ip"`
-	SelectionsPerIP   map[string]int64  `json:"selections_per_ip"`
+	ActiveConnections int64            `json:"active_connections"`
+	TotalRequests     int64            `json:"total_requests"`
+	BytesSent         int64            `json:"bytes_sent"`
+	BytesReceived     int64            `json:"bytes_received"`
+	ConnectionsPerIP  map[string]int64 `json:"connections_per_ip"`
+	SelectionsPerIP   map[string]int64 `json:"selections_per_ip"`
 }
 
 // StatsCollector collects runtime statistics.
