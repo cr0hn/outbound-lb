@@ -17,9 +17,121 @@ builds:
       - linux
       - darwin
       - windows
+      - freebsd
+      - openbsd
+      - netbsd
     goarch:
       - amd64
       - arm64
+      - arm
+      - "386"
+      - mips
+      - mipsle
+      - mips64
+      - mips64le
+      - ppc64
+      - ppc64le
+      - riscv64
+      - s390x
+    goarm:
+      - "5"
+      - "6"
+      - "7"
+    gomips:
+      - hardfloat
+      - softfloat
+    ignore:
+      # Darwin (macOS) only supports amd64 and arm64
+      - goos: darwin
+        goarch: arm
+      - goos: darwin
+        goarch: "386"
+      - goos: darwin
+        goarch: mips
+      - goos: darwin
+        goarch: mipsle
+      - goos: darwin
+        goarch: mips64
+      - goos: darwin
+        goarch: mips64le
+      - goos: darwin
+        goarch: ppc64
+      - goos: darwin
+        goarch: ppc64le
+      - goos: darwin
+        goarch: riscv64
+      - goos: darwin
+        goarch: s390x
+      # Windows only supports amd64, arm64, and 386
+      - goos: windows
+        goarch: arm
+      - goos: windows
+        goarch: mips
+      - goos: windows
+        goarch: mipsle
+      - goos: windows
+        goarch: mips64
+      - goos: windows
+        goarch: mips64le
+      - goos: windows
+        goarch: ppc64
+      - goos: windows
+        goarch: ppc64le
+      - goos: windows
+        goarch: riscv64
+      - goos: windows
+        goarch: s390x
+      # FreeBSD: no mips, mips64, ppc64, s390x
+      - goos: freebsd
+        goarch: mips
+      - goos: freebsd
+        goarch: mipsle
+      - goos: freebsd
+        goarch: mips64
+      - goos: freebsd
+        goarch: mips64le
+      - goos: freebsd
+        goarch: ppc64
+      - goos: freebsd
+        goarch: ppc64le
+      - goos: freebsd
+        goarch: s390x
+      # OpenBSD: only amd64, arm64, 386
+      - goos: openbsd
+        goarch: arm
+      - goos: openbsd
+        goarch: mips
+      - goos: openbsd
+        goarch: mipsle
+      - goos: openbsd
+        goarch: mips64
+      - goos: openbsd
+        goarch: mips64le
+      - goos: openbsd
+        goarch: ppc64
+      - goos: openbsd
+        goarch: ppc64le
+      - goos: openbsd
+        goarch: riscv64
+      - goos: openbsd
+        goarch: s390x
+      # NetBSD: no mips64, ppc64, riscv64, s390x
+      - goos: netbsd
+        goarch: mips
+      - goos: netbsd
+        goarch: mipsle
+      - goos: netbsd
+        goarch: mips64
+      - goos: netbsd
+        goarch: mips64le
+      - goos: netbsd
+        goarch: ppc64
+      - goos: netbsd
+        goarch: ppc64le
+      - goos: netbsd
+        goarch: riscv64
+      - goos: netbsd
+        goarch: s390x
     ldflags:
       - -s -w
       - -X main.version={{.Version}}
@@ -34,6 +146,8 @@ archives:
       {{- .Version }}_
       {{- .Os }}_
       {{- .Arch }}
+      {{- with .Arm }}v{{ . }}{{ end }}
+      {{- with .Mips }}_{{ . }}{{ end }}
     format_overrides:
       - goos: windows
         format: zip
@@ -68,14 +182,66 @@ release:
 
 dockers:
   - image_templates:
-      - "cr0hn/outbound-lb:{{ .Tag }}"
-      - "cr0hn/outbound-lb:v{{ .Major }}"
-      - "cr0hn/outbound-lb:v{{ .Major }}.{{ .Minor }}"
-      - "cr0hn/outbound-lb:latest"
+      - "cr0hn/outbound-lb:{{ .Tag }}-amd64"
+    use: buildx
     dockerfile: deployments/docker/Dockerfile
     build_flag_templates:
       - "--pull"
+      - "--platform=linux/amd64"
       - "--label=org.opencontainers.image.created={{.Date}}"
       - "--label=org.opencontainers.image.title={{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
+    goarch: amd64
+
+  - image_templates:
+      - "cr0hn/outbound-lb:{{ .Tag }}-arm64"
+    use: buildx
+    dockerfile: deployments/docker/Dockerfile
+    build_flag_templates:
+      - "--pull"
+      - "--platform=linux/arm64"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+    goarch: arm64
+
+  - image_templates:
+      - "cr0hn/outbound-lb:{{ .Tag }}-armv7"
+    use: buildx
+    dockerfile: deployments/docker/Dockerfile
+    build_flag_templates:
+      - "--pull"
+      - "--platform=linux/arm/v7"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+    goarch: arm
+    goarm: "7"
+
+docker_manifests:
+  - name_template: "cr0hn/outbound-lb:{{ .Tag }}"
+    image_templates:
+      - "cr0hn/outbound-lb:{{ .Tag }}-amd64"
+      - "cr0hn/outbound-lb:{{ .Tag }}-arm64"
+      - "cr0hn/outbound-lb:{{ .Tag }}-armv7"
+
+  - name_template: "cr0hn/outbound-lb:v{{ .Major }}"
+    image_templates:
+      - "cr0hn/outbound-lb:{{ .Tag }}-amd64"
+      - "cr0hn/outbound-lb:{{ .Tag }}-arm64"
+      - "cr0hn/outbound-lb:{{ .Tag }}-armv7"
+
+  - name_template: "cr0hn/outbound-lb:v{{ .Major }}.{{ .Minor }}"
+    image_templates:
+      - "cr0hn/outbound-lb:{{ .Tag }}-amd64"
+      - "cr0hn/outbound-lb:{{ .Tag }}-arm64"
+      - "cr0hn/outbound-lb:{{ .Tag }}-armv7"
+
+  - name_template: "cr0hn/outbound-lb:latest"
+    image_templates:
+      - "cr0hn/outbound-lb:{{ .Tag }}-amd64"
+      - "cr0hn/outbound-lb:{{ .Tag }}-arm64"
+      - "cr0hn/outbound-lb:{{ .Tag }}-armv7"
