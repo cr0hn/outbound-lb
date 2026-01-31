@@ -1,0 +1,58 @@
+services:
+  outbound-lb:
+    build:
+      context: ../..
+      dockerfile: deployments/docker/Dockerfile
+    container_name: outbound-lb
+    ports:
+      - "3128:3128"   # Proxy port
+      - "9090:9090"   # Metrics port
+    environment:
+      - TZ=UTC
+    command:
+      - --ips
+      - "0.0.0.0"
+      - --port
+      - "3128"
+      - --metrics-port
+      - "9090"
+      - --log-level
+      - info
+      - --log-format
+      - json
+      - --max-conns-per-ip
+      - "100"
+      - --max-conns-total
+      - "1000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9090/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - proxy-network
+
+  # Optional: Prometheus for metrics collection
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    restart: unless-stopped
+    depends_on:
+      - outbound-lb
+    networks:
+      - proxy-network
+    profiles:
+      - monitoring
+
+networks:
+  proxy-network:
+    driver: bridge

@@ -1,0 +1,51 @@
+# Outbound LB Configuration Example
+# Copy this file to config.yaml and adjust values as needed
+# Run with: outbound-lb --config config.yaml
+
+# Required: List of outbound IP addresses to use for load balancing
+# The proxy will distribute requests across these IPs using LRU per-host algorithm
+ips:
+  - 192.168.1.100
+  - 192.168.1.101
+  - 192.168.1.102
+
+# Proxy server port (default: 3128)
+port: 3128
+
+# Metrics/health server port (default: 9090)
+# Endpoints: /metrics, /health, /ready, /stats
+metrics_port: 9090
+
+# Optional: Basic authentication credentials
+# Format: "username:password"
+# Leave empty or remove to disable authentication
+# auth: "user:password"
+
+# Connection timeout for upstream requests (default: 30s)
+timeout: 30s
+
+# Idle connection timeout (default: 60s)
+idle_timeout: 60s
+
+# Maximum concurrent connections per outbound IP (default: 100)
+# Set this based on your upstream rate limits
+max_conns_per_ip: 100
+
+# Maximum total concurrent connections (default: 1000)
+# Set this based on your system resources
+max_conns_total: 1000
+
+# Time window for LRU history tracking (default: 5m)
+# Selections older than this are not considered for balancing
+history_window: 5m
+
+# Maximum number of history entries per host (default: 100)
+# Higher values give more accurate balancing but use more memory
+history_size: 100
+
+# Log level: debug, info, warn, error (default: info)
+log_level: info
+
+# Log format: json, text (default: json)
+# Use "text" for human-readable output during development
+log_format: json

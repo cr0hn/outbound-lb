@@ -1,0 +1,22 @@
+{
+  "name": "outbound-lb-nodejs-demo",
+  "version": "1.0.0",
+  "description": "Node.js demo for Outbound LB proxy",
+  "main": "basic_proxy.js",
+  "scripts": {
+    "start": "node basic_proxy.js",
+    "test": "node basic_proxy.js"
+  },
+  "keywords": [
+    "proxy",
+    "outbound-lb",
+    "demo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "http-proxy-agent": "^7.0.0",
+    "https-proxy-agent": "^7.0.0"
+  }
+}
