@@ -55,31 +55,7 @@ jobs:
         with:
           go-version: '1.23'
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        if: ${{ secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_TOKEN != '' }}
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Run GoReleaser (with Docker)
-        if: ${{ secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_TOKEN != '' }}
-        uses: goreleaser/goreleaser-action@v6
-        with:
-          distribution: goreleaser
-          version: latest
-          args: release --clean
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run GoReleaser (without Docker)
-        if: ${{ secrets.DOCKERHUB_USERNAME == '' || secrets.DOCKERHUB_TOKEN == '' }}
+      - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
@@ -125,7 +101,7 @@ jobs:
           ASSET_COUNT=$(gh release view "$TAG" --repo ${{ github.repository }} --json assets -q '.assets | length')
           echo "Total assets: $ASSET_COUNT"
 
-          # We expect at least 35 binary archives + checksums
+          # We expect at least 30 binary archives + checksums
           if [ "$ASSET_COUNT" -lt 30 ]; then
             echo "::warning::Expected at least 30 assets, got $ASSET_COUNT"
           fi
