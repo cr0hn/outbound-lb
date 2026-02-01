@@ -182,7 +182,7 @@ release:
 
 dockers:
   - image_templates:
-      - "cr0hn/outbound-lb:{{ .Tag }}-amd64"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-amd64"
     use: buildx
     dockerfile: deployments/docker/Dockerfile
     build_flag_templates:
@@ -195,7 +195,7 @@ dockers:
     goarch: amd64
 
   - image_templates:
-      - "cr0hn/outbound-lb:{{ .Tag }}-arm64"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-arm64"
     use: buildx
     dockerfile: deployments/docker/Dockerfile
     build_flag_templates:
@@ -208,7 +208,7 @@ dockers:
     goarch: arm64
 
   - image_templates:
-      - "cr0hn/outbound-lb:{{ .Tag }}-armv7"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-armv7"
     use: buildx
     dockerfile: deployments/docker/Dockerfile
     build_flag_templates:
@@ -222,26 +222,26 @@ dockers:
     goarm: "7"
 
 docker_manifests:
-  - name_template: "cr0hn/outbound-lb:{{ .Tag }}"
+  - name_template: "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}"
     image_templates:
-      - "cr0hn/outbound-lb:{{ .Tag }}-amd64"
-      - "cr0hn/outbound-lb:{{ .Tag }}-arm64"
-      - "cr0hn/outbound-lb:{{ .Tag }}-armv7"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-amd64"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-arm64"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-armv7"
 
-  - name_template: "cr0hn/outbound-lb:v{{ .Major }}"
+  - name_template: "ghcr.io/cr0hn/outbound-lb:v{{ .Major }}"
     image_templates:
-      - "cr0hn/outbound-lb:{{ .Tag }}-amd64"
-      - "cr0hn/outbound-lb:{{ .Tag }}-arm64"
-      - "cr0hn/outbound-lb:{{ .Tag }}-armv7"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-amd64"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-arm64"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-armv7"
 
-  - name_template: "cr0hn/outbound-lb:v{{ .Major }}.{{ .Minor }}"
+  - name_template: "ghcr.io/cr0hn/outbound-lb:v{{ .Major }}.{{ .Minor }}"
     image_templates:
-      - "cr0hn/outbound-lb:{{ .Tag }}-amd64"
-      - "cr0hn/outbound-lb:{{ .Tag }}-arm64"
-      - "cr0hn/outbound-lb:{{ .Tag }}-armv7"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-amd64"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-arm64"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-armv7"
 
-  - name_template: "cr0hn/outbound-lb:latest"
+  - name_template: "ghcr.io/cr0hn/outbound-lb:latest"
     image_templates:
-      - "cr0hn/outbound-lb:{{ .Tag }}-amd64"
-      - "cr0hn/outbound-lb:{{ .Tag }}-arm64"
-      - "cr0hn/outbound-lb:{{ .Tag }}-armv7"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-amd64"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-arm64"
+      - "ghcr.io/cr0hn/outbound-lb:{{ .Tag }}-armv7"

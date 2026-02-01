@@ -160,15 +160,15 @@ sudo mv outbound-lb /usr/local/bin/
 ### Docker
 
 ```bash
-# Pull from Docker Hub
-docker pull cr0hn/outbound-lb:latest
+# Pull from GitHub Container Registry
+docker pull ghcr.io/cr0hn/outbound-lb:latest
 
 # Run with Docker
 docker run -d \
   --name outbound-lb \
   -p 3128:3128 \
   -p 9090:9090 \
-  cr0hn/outbound-lb:latest \
+  ghcr.io/cr0hn/outbound-lb:latest \
   --ips "192.168.1.100,192.168.1.101"
 ```
 
@@ -810,7 +810,7 @@ version: '3.8'
 
 services:
   outbound-lb:
-    image: cr0hn/outbound-lb:latest
+    image: ghcr.io/cr0hn/outbound-lb:latest
     ports:
       - "3128:3128"
       - "9090:9090"
@@ -853,7 +853,7 @@ spec:
     spec:
       containers:
       - name: outbound-lb
-        image: cr0hn/outbound-lb:latest
+        image: ghcr.io/cr0hn/outbound-lb:latest
         args:
           - --ips=$(OUTBOUND_IPS)
           - --auth=$(PROXY_AUTH)
