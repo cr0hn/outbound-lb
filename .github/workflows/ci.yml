@@ -5,6 +5,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  workflow_dispatch:
 
 jobs:
   lint:
@@ -45,12 +46,6 @@ jobs:
             echo "Coverage is below 70%"
             exit 1
           fi
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          file: ./coverage.out
-          fail_ci_if_error: false
 
   build:
     name: Build
