@@ -9,7 +9,6 @@
   <img src="https://img.shields.io/github/license/cr0hn/outbound-lb?style=for-the-badge" alt="License">
   <img src="https://img.shields.io/github/v/release/cr0hn/outbound-lb?style=for-the-badge" alt="Release">
   <img src="https://img.shields.io/github/actions/workflow/status/cr0hn/outbound-lb/ci.yml?branch=main&style=for-the-badge&label=CI" alt="CI Status">
-  <img src="https://img.shields.io/codecov/c/github/cr0hn/outbound-lb?style=for-the-badge" alt="Coverage">
 </p>
 
 <p align="center">
@@ -28,6 +27,7 @@
 - [Use Cases](#use-cases)
 - [Architecture](#architecture)
 - [Installation](#installation)
+  - [Quick Install (Linux/macOS)](#quick-install-linuxmacos)
   - [From Source](#from-source)
   - [Pre-built Binaries](#pre-built-binaries)
   - [Docker](#docker)
@@ -134,6 +134,18 @@
 ---
 
 ## Installation
+
+### Quick Install (Linux/macOS)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/cr0hn/outbound-lb/main/install.sh | bash
+```
+
+Or with wget:
+
+```bash
+wget -qO- https://raw.githubusercontent.com/cr0hn/outbound-lb/main/install.sh | bash
+```
 
 ### From Source
 
