@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/Go-1.21+-00ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go Version">
   <img src="https://img.shields.io/github/license/cr0hn/outbound-lb?style=for-the-badge" alt="License">
   <img src="https://img.shields.io/github/v/release/cr0hn/outbound-lb?style=for-the-badge" alt="Release">
-  <img src="https://img.shields.io/github/actions/workflow/status/cr0hn/outbound-lb/ci.yml?branch=main&style=for-the-badge&label=CI" alt="CI Status">
+  <img src="https://img.shields.io/github/actions/workflow/status/cr0hn/outbound-lb/release.yml?style=for-the-badge&label=Build" alt="Build Status">
 </p>
 
 <p align="center">
